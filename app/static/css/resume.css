@@ -1,0 +1,7 @@
+body {
+    background-color: rgb(224, 217, 217);
+}
+
+.exam, #exam1>th, #exam2>td, #exam3>td, #exam4>td, #exam5>td, #exam6>td, #exam7>td, #exam8>td{
+    border:1px solid black;
+}
