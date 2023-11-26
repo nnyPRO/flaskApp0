@@ -1,7 +1,42 @@
-body {
-    background-color: rgb(224, 217, 217);
-}
+body{
+    width: 21cm;
+    height: 29.7cm;
+    margin: auto; 
+    border-style:groove; border-width:10px; border-color: #d4acc4;
+    padding: 20px;
+    background-color: rgb(221, 221, 212);
+    /* change the margins as you want them to be. */
+} 
+
 
 .exam, #exam1>th, #exam2>td, #exam3>td, #exam4>td, #exam5>td, #exam6>td, #exam7>td, #exam8>td{
     border:1px solid black;
 }
+
+#first{
+    display: inline;
+}
+
+#headName{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ; color: #940B92;
+}
+
+.title{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #B0578D;
+}
+
+p, li{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:85%;
+}
+.add_border{
+    border-bottom: 8px;
+    border-bottom-color: rgb(195, 148, 173);
+    border-bottom-style:solid;
+}
+
+th, td {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 85%;
+}
+
+
+
