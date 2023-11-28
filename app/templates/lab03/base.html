@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %} {% endblock %} - FlaskApp</title>
+  <style>
+    nav a {
+      color: #d64161;
+      font-size: 3em;
+      margin-left: 50px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+
+<body>
+  <nav>
+    <!-- กลับมาหน้า home --> 
+    <a href="{{ url_for('lab03_home') }}">FlaskApp</a>
+    <!-- ไปหน้า comment --> 
+    <a href="{{ url_for('lab03_comments') }}">Comments</a>
+    <!-- ไปหน้า about --> 
+    <a href="{{ url_for('lab03_about') }}">About</a>
+  </nav>
+  <hr>
+  <div class="content">
+    {% block content %} {% endblock %}
+  </div>
+</body>
+
+
+</html>
