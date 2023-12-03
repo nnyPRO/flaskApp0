@@ -1,0 +1,181 @@
+<!-- 
+เมษนี ลายเฮือง (แนน)
+650510676
+hw03 204212 sec001 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM 2.5 Calendar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hw03.css') }}">
+</head>
+
+
+<body>
+    
+
+    {{ a_variable }}
+    <h2 style="text-align: center;">PM 2.5 Calendar</h2>
+
+
+    <table >
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+
+        {#{% for i in range(weeks) %}#}
+          {% set i = namespace(value=0) %}
+          {% set prev_pm = namespace(value=0) %}
+          {% set arrow = "" %}
+
+          {% for pm25 in list_pm25 %}
+            
+            {#<h3>{{ pm25["day"] }}</h3>#}
+
+            {% set list_date = pm25["day"].split('-') %}
+            {#<h4>{{list_date}}</h4>#}
+            {% set year = list_date[0] %}
+            {% set month = list_date[1] %}
+            {% set day = list_date[2]|int %}
+
+            {% if month == '1' %}
+              {% set m = 13 %}
+            {% elif month == '2' %}
+              {% set m = 14 %}
+            {% else %}
+              {% set m = month|int %}
+            {% endif %}
+            
+            {#{%set month = '1'%}#}
+            {% if month == '1' or month == '2' %}
+              {% set k  = year|int %100 - 1 %}
+            {% else %}
+              {% set k  = year|int %100 %}
+            {% endif %}
+            
+            {% set j = year|int //100 %}
+
+            {% if month == '2' and year|int % 100 == 0 %}
+              {% set h =  ((day + ((13*(m+1))/5) + k + (k/4) + (j/4) - (2*j)) % 7)|int %}
+            {% else %}
+              {% set h = (day + ((13*(m+1))//5) + k + (k//4) + (j//4) - (2*j)) % 7 %}
+            {% endif %}
+
+            {# ตั้งชื่อคลาสเพื่อปรับสีพื้นหลัง #}
+            {% if pm25["avg"] <= 50 %}
+              {%set class_n = "good"%}
+            {% elif pm25["avg"] <= 100 %}
+              {%set class_n = "moderate"%}
+            {% elif pm25["avg"] <= 150 %}
+              {%set class_n = "unhealthy-sensitive"%}
+            {% elif pm25["avg"] <= 200 %}
+              {%set class_n = "unhealthy"%}
+            {% elif pm25["avg"] <= 300 %}
+              {%set class_n = "very-unhealthy"%}
+            {% elif pm25["avg"] <= 500 %}
+              {%set class_n = "hazardous"%}
+            {% endif %}
+
+            {# ถ้าเป็นวันแรกในปฏิทิน #}
+            {% if loop.index == 1%}
+              <tr>
+              {% if h == 1 %}  {# ถ้าเริ่มที่วันอาทิตย์ #}
+                <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} -</td>
+                {%set i.value = i.value+1%} 
+                {%set prev_pm.value = pm25["avg"]%}
+              {% elif h == 2 %}  {# ถ้าเริ่มที่วันจันทร์ #}
+                <td></td>
+                <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} -</p></td>
+                {%set prev_pm.value = pm25["avg"]%}
+              {% elif h == 3 %} 
+                <td></td>
+                <td></td>
+                <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} -</p></td>
+                {%set prev_pm.value = pm25["avg"]%}
+              {% elif h == 4 %}
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} -</p></td>
+                {%set prev_pm.value = pm25["avg"]%}
+              {% elif h == 5 %}
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} -</p></td>
+                {%set prev_pm.value = pm25["avg"]%}
+              {% elif h == 6 %}
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} -</p></td>
+                {%set prev_pm.value = pm25["avg"]%}
+              {% elif h == 0 %}  {# ถ้าเริ่มที่วันเสาร์ #}
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} -</p></td>
+                {%set prev_pm.value = pm25["avg"]%}
+              {% endif %}
+
+            {# ถ้าไม่ใช่วันแรกในปฏิทิน #}
+            {% else %}
+                {% if (prev_pm.value|int > pm25["avg"]|int) %}
+                
+                  {%set arrow = '↓'%}
+                {% elif (prev_pm.value|int < pm25["avg"]|int) %}
+                
+                  {%set arrow = '↑'%}
+                {% else %}
+                  {%set arrow = '↔'%}
+                {% endif %}
+
+                {% if h == 1 %}
+                  <tr>
+                  <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} {{arrow}}</p></td>
+                  {%set prev_pm.value = pm25["avg"]%}
+                {% elif h == 0 %}
+                  <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} {{arrow}}</p></td>
+                  {%set prev_pm.value = pm25["avg"]%}
+                  </tr>
+                {% else %}
+                  <td class="{{class_n}}">{{pm25["day"]}} <p>{{pm25["avg"]}} {{arrow}}</p></td>
+                  {%set prev_pm.value = pm25["avg"]%}
+                {% endif %}
+            {% endif %}
+          
+          
+
+          {% endfor %}
+          
+
+        {#{% endfor %}#}
+        
+
+        
+          
+        
+
+        
+    </table>
+  
+</body>
+
+
+</html>
