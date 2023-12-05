@@ -1,6 +1,6 @@
 from flask import jsonify, render_template
 from app import app
-# from app import hw_views
+from app import hw_views
 import datetime
 
 @app.route('/')
@@ -19,7 +19,7 @@ def data():
         "Alice": "(708) 727-2377",
         "Bob": "(305) 734-0429"
     }
-    app.logger.debug(str(len(d)) + " entries in phonebook")
+    app.logger.debug(str(len(d)) + " entries in phonebook") #debug
 
     return jsonify(d)  # convert your data to JSON and return
 
