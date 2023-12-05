@@ -1,6 +1,6 @@
-# เมษนี ลายเฮือง - แนน
-# 650510676
-# Sec001 
+<!-- เมษนี ลายเฮือง - แนน
+650510676
+Sec001  -->
 
 <!doctype html>
 <html lang="en">
@@ -10,6 +10,7 @@
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
+  
   <h1>Chiang Mai AQI</h1>
   <script>
     (function () {
@@ -18,8 +19,6 @@
         $.each(weather, function (key, val) {
           items.push("<li>" + key + ": " + val + "</li>");
         });
-
-
         $("<ul/>", {
           "class": "my-new-list",
           html: items.join("")
