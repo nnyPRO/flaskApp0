@@ -48,3 +48,7 @@ def lab03_comments():
 
 
     return render_template('lab03/comments.html', comments=comments)
+
+@app.route('/lab04')
+def lab04_bootstrap():
+    return app.send_static_file('lab04_bootstrap.html')
