@@ -1,64 +1,58 @@
 table {
-   margin-left: auto;
-   margin-right: auto;
-   width: 70%;
-   /* height: 50%; */
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  /* height: 50%; */
 }
 
-th, td {
-   text-align: center;
+th,
+td {
+  text-align: center;
 }
 
 td {
-   height: 100px;
-   width: 50px;
+  height: 100px;
+  width: 50px;
 }
 
 th {
-   height: 40px;
-   background-color: rgb(255, 194, 221);
-   
+  height: 40px;
+  background-color: rgb(255, 194, 221);
 }
 
-table, th, td {
-   border: 1px solid black;
-   border-collapse: collapse;
-
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
 }
 
 td.good {
-   background-color: #00e400;
-   color: #ffffff;
- }
- 
- 
- td.moderate {
-   background-color: #ffff00;
-   color: #333333;
- }
- 
- 
- td.unhealthy-sensitive {
-   background-color: #ff7e00;
-   color: #ffffff;
- }
- 
- 
- td.unhealthy {
-   background-color: #ff0000;
-   color: #ffffff;
- }
- 
- 
- td.very-unhealthy {
-   background-color: #8f3f97;
-   color: #ffffff;
- }
- 
- 
- td.hazardous {
-   background-color: #7e0023;
-   color: #ffffff;
- }
- 
- 
+  background-color: #00e400;
+  color: #ffffff;
+}
+
+td.moderate {
+  background-color: #ffff00;
+  color: #333333;
+}
+
+td.unhealthy-sensitive {
+  background-color: #ff7e00;
+  color: #ffffff;
+}
+
+td.unhealthy {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
+td.very-unhealthy {
+  background-color: #8f3f97;
+  color: #ffffff;
+}
+
+td.hazardous {
+  background-color: #7e0023;
+  color: #ffffff;
+}

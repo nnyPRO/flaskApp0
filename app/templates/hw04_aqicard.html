@@ -1,0 +1,332 @@
+<!-- 
+เมษนี ลายเฮือง (แนน)
+650510676
+hw03 204212 sec001 -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hw04.css') }}">
+
+    <title>aqicard</title>
+  </head>
+
+  <body>
+    
+    <div class="container grid">
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+          <!-- card ใบที่ 1 -->
+          <div class="card">
+            <!-- header -->
+            <div class="card-header bg-transparent">
+              Chiang Mai air quality index
+            </div>
+            <!-- body -->
+            {# ตั้งชื่อคลาสเพื่อปรับสีพื้นหลัง #}
+            {% if chiangmai["aqi"] <= 50 %}
+              {%set level = "good"%}
+              {%set message = "Good"%}
+            {% elif chiangmai["aqi"] <= 100 %}
+              {%set level = "moderate"%}
+              {%set message = "Moderate"%}
+            {% elif chiangmai["aqi"] <= 150 %}
+              {%set level = "unhealthy-sensitive"%}
+              {%set message = "Unhealthy for sensitive group"%}
+            {% elif chiangmai["aqi"] <= 200 %}
+              {%set level = "unhealthy"%}
+              {%set message = "Unhealthy"%}
+            {% elif chiangmai["aqi"] <= 300 %}
+              {%set level = "very-unhealthy"%}
+              {%set message = "Very unhealthy"%}
+            {% elif chiangmai["aqi"] <= 500 %}
+              {%set level = "hazardous"%}
+              {%set message = "Hazardous"%}
+            {% endif %}
+            <div class="card-body {{level}}">
+              <div class="container">
+                <div class="row">
+                  <div class="col col1">
+                    <p class="date1">{{chiangmai["day"]}} {{chiangmai["month"]}} {{chiangmai["year"]}}</p>
+                    <p>{{chiangmai["aqi"]}}</p>
+                  </div>
+                  <div class="col col2">
+                    <div class="icon-{{level}}"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col3">{{message}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- footer -->
+            <div class="card-footer">
+              <div class="container">
+                <div class="row">
+                  {% for f in chiangmai["forecast"] %}
+                    {% if f["avg"] <= 50 %}
+                      {%set class_n = "good"%}
+                    {% elif f["avg"] <= 100 %}
+                      {%set class_n = "moderate"%}
+                    {% elif f["avg"] <= 150 %}
+                      {%set class_n = "unhealthy-sensitive"%}
+                    {% elif f["avg"] <= 200 %}
+                      {%set class_n = "unhealthy"%}
+                    {% elif f["avg"] <= 300 %}
+                      {%set class_n = "very-unhealthy"%}
+                    {% elif f["avg"] <= 500 %}
+                      {%set class_n = "hazardous"%}
+                    {% endif %}
+                    <div class="col">
+                      {{f["month"]}} {{f["day"]}}
+                      <div class="{{class_n}} day">{{f["avg"]}}</div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+          <!-- card ใบที่ 2 -->
+          <div class="card">
+            <!-- header -->
+            <div class="card-header bg-transparent">
+              Bangkok air quality index
+            </div>
+            <!-- body -->
+            {# ตั้งชื่อคลาสเพื่อปรับสีพื้นหลัง #}
+            {% if bangkok["aqi"] <= 50 %}
+              {%set level = "good"%}
+              {%set message = "Good"%}
+            {% elif bangkok["aqi"] <= 100 %}
+              {%set level = "moderate"%}
+              {%set message = "Moderate"%}
+            {% elif bangkok["aqi"] <= 150 %}
+              {%set level = "unhealthy-sensitive"%}
+              {%set message = "Unhealthy for sensitive group"%}
+            {% elif bangkok["aqi"] <= 200 %}
+              {%set level = "unhealthy"%}
+              {%set message = "Unhealthy"%}
+            {% elif bangkok["aqi"] <= 300 %}
+              {%set level = "very-unhealthy"%}
+              {%set message = "Very unhealthy"%}
+            {% elif bangkok["aqi"] <= 500 %}
+              {%set level = "hazardous"%}
+              {%set message = "Hazardous"%}
+            {% endif %}
+            <div class="card-body {{level}}">
+              <div class="container">
+                <div class="row">
+                  <div class="col col1">
+                    <p class="date1">{{bangkok["day"]}} {{bangkok["month"]}} {{bangkok["year"]}}</p>
+                    <p class="{{level}}">{{bangkok["aqi"]}}</p>
+                  </div>
+                  <div class="col col2">
+                    <div class="icon-{{level}}"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col3">{{message}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- footer -->
+            <div class="card-footer">
+              <div class="container">
+                <div class="row">
+                  {% for f in bangkok["forecast"] %}
+                    {% if f["avg"] <= 50 %}
+                      {%set class_n = "good"%}
+                    {% elif f["avg"] <= 100 %}
+                      {%set class_n = "moderate"%}
+                    {% elif f["avg"] <= 150 %}
+                      {%set class_n = "unhealthy-sensitive"%}
+                    {% elif f["avg"] <= 200 %}
+                      {%set class_n = "unhealthy"%}
+                    {% elif f["avg"] <= 300 %}
+                      {%set class_n = "very-unhealthy"%}
+                    {% elif f["avg"] <= 500 %}
+                      {%set class_n = "hazardous"%}
+                    {% endif %}
+                    <div class="col">
+                      {{f["month"]}} {{f["day"]}}
+                      <div class="{{class_n}} day">{{f["avg"]}}</div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+          <!-- card ใบที่ 3 -->
+          <div class="card">
+            <!-- header -->
+            <div class="card-header bg-transparent">
+              Phuket air quality index
+            </div>
+            <!-- body -->
+            {# ตั้งชื่อคลาสเพื่อปรับสีพื้นหลัง #}
+            {% if phuket["aqi"] <= 50 %}
+              {%set level = "good"%}
+              {%set message = "Good"%}
+            {% elif phuket["aqi"] <= 100 %}
+              {%set level = "moderate"%}
+              {%set message = "Moderate"%}
+            {% elif phuket["aqi"] <= 150 %}
+              {%set level = "unhealthy-sensitive"%}
+              {%set message = "Unhealthy for sensitive group"%}
+            {% elif phuket["aqi"] <= 200 %}
+              {%set level = "unhealthy"%}
+              {%set message = "Unhealthy"%}
+            {% elif phuket["aqi"] <= 300 %}
+              {%set level = "very-unhealthy"%}
+              {%set message = "Very unhealthy"%}
+            {% elif phuket["aqi"] <= 500 %}
+              {%set level = "hazardous"%}
+              {%set message = "Hazardous"%}
+            {% endif %}
+
+            <div class="card-body {{level}}">
+              <div class="container">
+                <div class="row">
+                  <div class="col col1">
+                    <p class="date1">{{phuket["day"]}} {{phuket["month"]}} {{phuket["year"]}}</p>
+                    <p class="{{level}}">{{phuket["aqi"]}}</p>
+                  </div>
+                  <div class="col col2">
+                    <div class="icon-{{level}}"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col3">{{message}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- footer -->
+            <div class="card-footer">
+              <div class="container">
+                <div class="row">
+                  {% for f in phuket["forecast"] %}
+                    {% if f["avg"] <= 50 %}
+                      {%set class_n = "good"%}
+                    {% elif f["avg"] <= 100 %}
+                      {%set class_n = "moderate"%}
+                    {% elif f["avg"] <= 150 %}
+                      {%set class_n = "unhealthy-sensitive"%}
+                    {% elif f["avg"] <= 200 %}
+                      {%set class_n = "unhealthy"%}
+                    {% elif f["avg"] <= 300 %}
+                      {%set class_n = "very-unhealthy"%}
+                    {% elif f["avg"] <= 500 %}
+                      {%set class_n = "hazardous"%}
+                    {% endif %}
+                    <div class="col">
+                      {{f["month"]}} {{f["day"]}}
+                      <div class="{{class_n}} day">{{f["avg"]}}</div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+          <!-- card ใบที่ 4 -->
+          <div class="card">
+            <!-- header -->
+            <div class="card-header bg-transparent">
+                Ubon Ratchathani air quality index
+            </div>
+            <!-- body -->
+            {# ตั้งชื่อคลาสเพื่อปรับสีพื้นหลัง #}
+            {% if ubon["aqi"] <= 50 %}
+              {%set level = "good"%}
+              {%set message = "Good"%}
+            {% elif ubon["aqi"] <= 100 %}
+              {%set level = "moderate"%}
+              {%set message = "Moderate"%}
+            {% elif ubon["aqi"] <= 150 %}
+              {%set level = "unhealthy-sensitive"%}
+              {%set message = "Unhealthy for sensitive group"%}
+            {% elif ubon["aqi"] <= 200 %}
+              {%set level = "unhealthy"%}
+              {%set message = "Unhealthy"%}
+            {% elif ubon["aqi"] <= 300 %}
+              {%set level = "very-unhealthy"%}
+              {%set message = "Very unhealthy"%}
+            {% elif ubon["aqi"] <= 500 %}
+              {%set level = "hazardous"%}
+              {%set message = "Hazardous"%}
+            {% endif %}
+            <div class="card-body {{level}}">
+              <div class="container">
+                <div class="row">
+                  <div class="col col1">
+                    <p class="date1">{{ubon["day"]}} {{ubon["month"]}} {{ubon["year"]}}</p>
+                    <p class="{{level}}">{{ubon["aqi"]}}</p>
+                  </div>
+                  <div class="col col2">
+                    <div class="icon-{{level}}"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col3">{{message}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- footer -->
+            <div class="card-footer">
+              <div class="container">
+                <div class="row">
+                  {% for f in ubon["forecast"] %}
+                    {% if f["avg"] <= 50 %}
+                      {%set class_n = "good"%}
+                    {% elif f["avg"] <= 100 %}
+                      {%set class_n = "moderate"%}
+                    {% elif f["avg"] <= 150 %}
+                      {%set class_n = "unhealthy-sensitive"%}
+                    {% elif f["avg"] <= 200 %}
+                      {%set class_n = "unhealthy"%}
+                    {% elif f["avg"] <= 300 %}
+                      {%set class_n = "very-unhealthy"%}
+                    {% elif f["avg"] <= 500 %}
+                      {%set class_n = "hazardous"%}
+                    {% endif %}
+                    <div class="col">
+                      {{f["month"]}} {{f["day"]}}
+                      <div class="{{class_n}} day">{{f["avg"]}}</div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </body>
+</html>
