@@ -31,11 +31,11 @@ hw03 204212 sec001 -->
     
     <div class="container grid">
       <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-sm-12 col-md-6 col-xl-3">
           <!-- card ใบที่ 1 -->
           <div class="card">
             <!-- header -->
-            <div class="card-header bg-transparent">
+            <div class="card-header">
               Chiang Mai air quality index
             </div>
             <!-- body -->
@@ -64,7 +64,7 @@ hw03 204212 sec001 -->
                 <div class="row">
                   <div class="col col1">
                     <p class="date1">{{chiangmai["day"]}} {{chiangmai["month"]}} {{chiangmai["year"]}}</p>
-                    <p>{{chiangmai["aqi"]}}</p>
+                    <p class="{{level}} aqi1">{{chiangmai["aqi"]}}</p>
                   </div>
                   <div class="col col2">
                     <div class="icon-{{level}}"></div>
@@ -105,11 +105,11 @@ hw03 204212 sec001 -->
         </div>
 
       
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-sm-12 col-md-6 col-xl-3">
           <!-- card ใบที่ 2 -->
           <div class="card">
             <!-- header -->
-            <div class="card-header bg-transparent">
+            <div class="card-header">
               Bangkok air quality index
             </div>
             <!-- body -->
@@ -138,7 +138,7 @@ hw03 204212 sec001 -->
                 <div class="row">
                   <div class="col col1">
                     <p class="date1">{{bangkok["day"]}} {{bangkok["month"]}} {{bangkok["year"]}}</p>
-                    <p class="{{level}}">{{bangkok["aqi"]}}</p>
+                    <p class="{{level}} aqi1">{{bangkok["aqi"]}}</p>
                   </div>
                   <div class="col col2">
                     <div class="icon-{{level}}"></div>
@@ -178,11 +178,11 @@ hw03 204212 sec001 -->
           </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-sm-12 col-md-6 col-xl-3">
           <!-- card ใบที่ 3 -->
           <div class="card">
             <!-- header -->
-            <div class="card-header bg-transparent">
+            <div class="card-header">
               Phuket air quality index
             </div>
             <!-- body -->
@@ -212,7 +212,7 @@ hw03 204212 sec001 -->
                 <div class="row">
                   <div class="col col1">
                     <p class="date1">{{phuket["day"]}} {{phuket["month"]}} {{phuket["year"]}}</p>
-                    <p class="{{level}}">{{phuket["aqi"]}}</p>
+                    <p class="{{level}} aqi1">{{phuket["aqi"]}}</p>
                   </div>
                   <div class="col col2">
                     <div class="icon-{{level}}"></div>
@@ -252,11 +252,11 @@ hw03 204212 sec001 -->
           </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-sm-12 col-md-6 col-xl-3">
           <!-- card ใบที่ 4 -->
           <div class="card">
             <!-- header -->
-            <div class="card-header bg-transparent">
+            <div class="card-header">
                 Ubon Ratchathani air quality index
             </div>
             <!-- body -->
@@ -285,7 +285,7 @@ hw03 204212 sec001 -->
                 <div class="row">
                   <div class="col col1">
                     <p class="date1">{{ubon["day"]}} {{ubon["month"]}} {{ubon["year"]}}</p>
-                    <p class="{{level}}">{{ubon["aqi"]}}</p>
+                    <p class="{{level}} aqi1">{{ubon["aqi"]}}</p>
                   </div>
                   <div class="col col2">
                     <div class="icon-{{level}}"></div>

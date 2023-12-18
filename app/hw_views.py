@@ -77,7 +77,7 @@ def hw03_pm25():
 
 
 @app.route("/hw04")
-def hw04():
+def hw04_rwd():
     return app.send_static_file('hw04_rwd.html')
 
 @app.route("/hw04/aqicard/")
