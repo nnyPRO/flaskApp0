@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.10-alpine3.15
+FROM python:3.10-alpine3.17
 
 
 # This prevents Python from writing out pyc files

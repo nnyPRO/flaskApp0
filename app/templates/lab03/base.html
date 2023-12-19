@@ -18,6 +18,14 @@ lab03 204212 sec001 -->
       margin-left: 50px;
       text-decoration: none;
     }
+
+    .alert {
+      padding: 20px;
+      margin: 5px;
+      color: #970020;
+      background-color: #ffd5de;
+    }
+
   </style>
 </head>
 
@@ -28,11 +36,15 @@ lab03 204212 sec001 -->
     <a href="{{ url_for('lab03_home') }}">FlaskApp</a>
     <!-- ไปหน้า comment --> 
     <a href="{{ url_for('lab03_comments') }}">Comments</a>
+    <a href="{{ url_for('lab03_create') }}">Create</a>
     <!-- ไปหน้า about --> 
     <a href="{{ url_for('lab03_about') }}">About</a>
   </nav>
   <hr>
   <div class="content">
+    {% for message in get_flashed_messages() %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
     {% block content %} {% endblock %}
   </div>
 </body>

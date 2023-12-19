@@ -5,17 +5,15 @@
   <h1>{% block title %} Comments {% endblock %}</h1>
   <div style="width: 50%; margin: auto">
     {% for comment in comments %}
-      {#<div style="padding: 10px;#}
-      {#background-color: {{ loop.cycle('#EEE', '#e6f9ff') }};#}
-      {#margin: 20px">#}
-      {% if loop.index != 2 %}
-        <div style="padding: 10px;
+      <div style="padding: 10px;
           background-color: #EEE;
           margin: 20px">
-          <p>#{{ loop.index }}</p>
-          <p style="font-size: 24px">{{ comment }}</p>
+        <p>#{{ loop.index }}</p>
+        <div class='message'>
+          <h3>{{ comment['title'] }}</h3>
+          <p>{{ comment['content'] }}</p>
         </div>
-      {% endif %}
+      </div>
     {% endfor %}
   </div>
 {% endblock %}
