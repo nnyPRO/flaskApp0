@@ -1,0 +1,10 @@
+{% extends 'lab06/base.html' %}
+{% block content %}
+  <h1>{% block title %} Registered Users {% endblock %}</h1>
+  
+  <ul>
+  {% for user in user_list %}
+    <li> {{ user['username'] }} - {{ user['email']}} </li>
+  {% endfor %}
+</ul>
+{% endblock %}

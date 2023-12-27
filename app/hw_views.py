@@ -2,11 +2,12 @@
 # 650510676
 # Sec001 
 
-from flask import jsonify, render_template
+from flask import jsonify, render_template, redirect, url_for, flash
 from app import app
 import json
 from urllib.request import urlopen
 import datetime, calendar
+from app.forms import forms
 
 
 @app.route('/weather')
@@ -53,27 +54,6 @@ def hw03_pm25():
     # app.logger.debug(type(list_pm25[0]["avg"]))
     
     return render_template('lab03/hw03_pm25.html', list_pm25=list_pm25, weeks=abs(weeks))
-
-# @app.route("/api/pm25")
-# def api_pm25():
-    
-#     # define some data
-#     url = "https://api.waqi.info/feed/Chiangmai/?token=830b47529331aafbd839b57c9415608551d1d4f8"
-#     c = urlopen(url)
-#     chiangmai = json.load(c)
-#     time = (chiangmai["data"]["time"]["s"]).split(' ')
-#     new_time = time[0].split('-')
-#     d_chiangmai = {
-#         "aqi" : chiangmai["data"]["aqi"],
-#         "forecast" : chiangmai["data"]["forecast"]["daily"]["o3"],
-#         "day" : new_time[2],
-#         "month" : new_time[1],
-#         "year" : new_time[0]
-#     }
-    
-    
-#     # app.logger.debug(pm25)
-#     return jsonify(d_chiangmai)  # convert your data to JSON and return
 
 
 @app.route("/hw04")
@@ -194,6 +174,63 @@ def hw04_aqicard():
         "year" : new_time[0]
     }
     
-    app.logger.debug(forecast)
     
     return render_template('hw04_aqicard.html', chiangmai = d_chiangmai, bangkok = d_bangkok, phuket = d_phuket, ubon = d_ubon)
+
+def read_file(filename, mode="rt"):
+    with open(filename, mode, encoding='utf-8') as fin:
+        return fin.read()
+
+def write_file(filename, contents, mode="wt"):
+    with open(filename, mode, encoding="utf-8") as fout:
+        fout.write(contents) 
+    
+@app.route('/hw06/register', methods=('GET', 'POST'))
+def hw06_register():
+    form = forms.RegistrationForm()
+    bool_user = False
+    bool_email = False
+    if form.validate_on_submit():
+        raw_json = read_file('app/data/users.json')
+        user_list = json.loads(raw_json)
+        if user_list != []: 
+            for user in user_list:
+                username = str.lower(form.username.data)
+                email =  str.lower(form.email.data)
+                if username == user['username']:
+                    bool_user = True
+                elif email == user['email']:
+                    bool_email = True
+                    
+            if bool_user:
+                app.logger.debug(9999999)
+                flash('Username already exists')
+            elif bool_email:
+                flash('Email already exists')
+            else:
+                user_list.append({'username': username,
+                                    'email': email,
+                                    'password': form.password.data,
+                                    })
+                write_file('app/data/users.json',
+                            json.dumps(user_list, indent=4))
+                return redirect(url_for('hw06_users'))
+            
+        else:
+            username = str.lower(form.username.data)
+            email =  str.lower(form.email.data)
+            user_list.append({'username': username,
+                                'email': email,
+                                'password': form.password.data,
+                                })
+            write_file('app/data/users.json',
+                        json.dumps(user_list, indent=4))
+            return redirect(url_for('hw06_users'))
+            
+    return render_template('lab06/hw06_register.html', form=form)
+
+@app.route('/hw06/users')
+def hw06_users():
+    raw_json = read_file('app/data/users.json')
+    user_list = json.loads(raw_json)
+    return render_template('lab06/hw06_users.html', user_list=user_list)

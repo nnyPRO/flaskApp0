@@ -1,0 +1,75 @@
+
+{% extends 'lab06/base.html' %}
+
+
+{% block content %}
+
+<h1 class="register-user">{% block title %} Register New User {% endblock %}</h1>
+
+<form class="form-container" method="POST" action="/hw06/register">
+  {{ form.csrf_token }}
+  <p class="form-group">
+    {{ form.username.label }}
+    {{ form.username }}
+  </p>
+
+  {% if form.username.errors %}
+  <ul class="errors">
+    {% for error in form.username.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  
+  <p class="form-group">
+    {{ form.email.label }}
+    {{ form.email }}
+  </p>
+
+  {% if form.email.errors %}
+  <ul class="errors">
+    {% for error in form.email.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+  <p class="form-group">
+    {{ form.password.label }}
+    {{ form.password() }}
+  </p>
+
+  {% if form.password.errors %}
+  <ul class="errors">
+    {% for error in form.password.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+  <p class="form-group">
+    {{ form.conform_password.label }}
+    {{ form.conform_password() }} 
+  </p>
+
+  {% if form.conform_password.errors %}
+  <ul class="errors">
+    {% for error in form.conform_password.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+  <p class="form-group">
+    <input type="submit" value="Sign Up">
+  </p>
+</form>
+
+
+
+{% endblock %}
+
