@@ -4,7 +4,7 @@
 
 from flask import jsonify, render_template, redirect, url_for, flash
 from app import app
-import json
+import json, bcrypt 
 from urllib.request import urlopen
 import datetime, calendar
 from app.forms import forms
@@ -191,37 +191,42 @@ def hw06_register():
     bool_user = False
     bool_email = False
     if form.validate_on_submit():
+        password = form.password.data
+        byte = password.encode('utf-8') 
+        # generating the salt 
+        salt = bcrypt.gensalt() 
+        app.logger.debug("salt:", salt)
+        # Hashing the password 
+        hash = str(bcrypt.hashpw(byte, salt))
+        username = str.lower(form.username.data)
+        email =  str.lower(form.email.data)
         raw_json = read_file('app/data/users.json')
         user_list = json.loads(raw_json)
         if user_list != []: 
             for user in user_list:
-                username = str.lower(form.username.data)
-                email =  str.lower(form.email.data)
                 if username == user['username']:
                     bool_user = True
                 elif email == user['email']:
                     bool_email = True
                     
             if bool_user:
-                app.logger.debug(9999999)
+                
                 flash('Username already exists')
             elif bool_email:
                 flash('Email already exists')
             else:
                 user_list.append({'username': username,
                                     'email': email,
-                                    'password': form.password.data,
+                                    'password': hash
                                     })
                 write_file('app/data/users.json',
                             json.dumps(user_list, indent=4))
                 return redirect(url_for('hw06_users'))
             
         else:
-            username = str.lower(form.username.data)
-            email =  str.lower(form.email.data)
             user_list.append({'username': username,
                                 'email': email,
-                                'password': form.password.data,
+                                'password': hash
                                 })
             write_file('app/data/users.json',
                         json.dumps(user_list, indent=4))
