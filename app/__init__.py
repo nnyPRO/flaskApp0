@@ -1,5 +1,6 @@
 from flask import Flask
 
+
 app = Flask(__name__, static_folder='static')
 app.url_map.strict_slashes = False
 
