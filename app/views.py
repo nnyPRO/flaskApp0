@@ -115,3 +115,15 @@ def lab07_form_validation():
 @app.route('/lab07b')
 def lab07b():
     return app.send_static_file('lab07b.html')
+
+@app.route('/lab08a')
+def lab08a():
+    return app.send_static_file('lab08a.html')
+
+@app.route('/lab08b')
+def lab08b():
+    return app.send_static_file('lab08b.html')
+
+@app.route('/lab08c')
+def lab08c():
+    return app.send_static_file('lab08c.html')
