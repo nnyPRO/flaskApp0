@@ -127,3 +127,52 @@ def lab08b():
 @app.route('/lab08c')
 def lab08c():
     return app.send_static_file('lab08c.html')
+
+
+@app.route('/lab09', methods=('GET', 'POST'))
+def lab09():
+    if request.method == 'POST':
+        result = request.form.to_dict()
+        app.logger.debug(str(result))
+
+        validated = True
+        valid_keys = ['firstname', 'lastname', 'phone',
+                      'postcode', 'subdist', 'district', 'province']
+        for key in result:
+            if key not in valid_keys:
+                continue
+            value = result[key].strip()
+            if not value or value == 'undefined':
+                validated = False
+            break
+
+        if validated:
+            contact_file = 'app/data/stored_contacts.json'
+            raw_json = read_file(contact_file)
+            contacts = json.loads(raw_json)
+            contacts.append(result)
+            write_file(contact_file, json.dumps(
+                contacts, indent=4, ensure_ascii=False))
+        return jsonify(contacts)
+
+    return app.send_static_file('lab09_address_book.html')
+
+
+@app.route("/lab09/contacts")
+def lab09_stored_contacts():
+    raw_json = read_file('app/data/stored_contacts.json')
+    contacts = json.loads(raw_json)
+    
+    return jsonify(contacts)
+
+
+@app.route("/lab09/subdist_list", methods=('GET', 'POST'))
+def lab09_query_subdist():
+    if request.method == 'GET':
+        app.logger.debug(request.args)
+        query = request.args.to_dict()
+        raw_json = read_file('app/data/post_code_cnx.json')
+        all_postcodes = json.loads(raw_json)
+
+        result = all_postcodes.get(query['postcode'], [])
+        return jsonify(result)
